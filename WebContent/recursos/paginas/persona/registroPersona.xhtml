@@ -1,0 +1,75 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+	<div class="ui-fluid">
+		<p:growl life="4000" autoUpdate="true" />
+
+		<h:form id="frmPersona">
+
+			<p:panelGrid columns="2" layout="grid"
+				styleClass="ui-panelgrid-blank"
+				columnClasses="ui-grid-col-4,ui-grid-col-8">
+
+				<p:outputLabel value="Documento"></p:outputLabel>
+				<p:inputText value="#{clienteBean.clienteDto.documento}"
+					maxlength="12" required="true"
+					requiredMessage="Debe ingresar un documento">
+					<p:ajax event="blur" listener="#{clienteBean.buscar}"
+						update="frmPersona" process="@this" />
+				</p:inputText>
+
+				<p:outputLabel value="Nombres"></p:outputLabel>
+				<p:inputText value="#{clienteBean.clienteDto.nombres}"
+					maxlength="100" disabled="#{!clienteBean.habilitarDatos}"
+					required="true" requiredMessage="Debe ingresar nombres" />
+
+				<p:outputLabel value="Apellido Paterno"></p:outputLabel>
+				<p:inputText value="#{clienteBean.clienteDto.apellidopaterno}"
+					maxlength="100" disabled="#{!clienteBean.habilitarDatos}"
+					required="true" requiredMessage="Debe ingresar el apellido paterno" />
+
+				<p:outputLabel value="Apellido Materno"></p:outputLabel>
+				<p:inputText value="#{clienteBean.clienteDto.apellidomaterno}"
+					maxlength="100" disabled="#{!clienteBean.habilitarDatos}"
+					required="true" requiredMessage="Debe ingresar el apellido materno" />
+
+				<p:outputLabel value="Fecha Nacimiento"></p:outputLabel>
+				<p:calendar locale="es" navigator="true" pattern="dd/MM/yyyy"
+					disabled="#{!clienteBean.habilitarDatos}" required="true"
+					requiredMessage="Debe ingresar la fecha de nacimiento"
+					value="#{clienteBean.clienteDto.fechanacimiento}" />
+
+				<p:outputLabel value="Sexo"></p:outputLabel>
+				<p:selectOneRadio value="#{clienteBean.clienteDto.sexo}"
+					unselectable="true" required="true"
+					disabled="#{!clienteBean.habilitarDatos}"
+					requiredMessage="Debe ingresar el sexo">
+					<f:selectItem itemLabel="Hombre" itemValue="H" />
+					<f:selectItem itemLabel="Mujer" itemValue="M" />
+				</p:selectOneRadio>
+
+				<p:outputLabel value="Correo contacto"></p:outputLabel>
+				<p:inputText value="#{clienteBean.clienteDto.correo}"
+					required="true" requiredMessage="Debe ingresar el correo contacto"
+					maxlength="100" disabled="#{!clienteBean.habilitarDatos}" />
+
+				<p:outputLabel value="Celular o teléfono"></p:outputLabel>
+				<p:inputText value="#{clienteBean.clienteDto.celular}"
+					required="true" maxlength="9"
+					requiredMessage="Debe ingresar el celular o teléfono"
+					disabled="#{!clienteBean.habilitarDatos}" />
+			</p:panelGrid>
+
+			<p:panelGrid columns="2" layout="grid"
+				styleClass="ui-panelgrid-blank"
+				columnClasses="ui-grid-col-6,ui-grid-col-6">
+				<p:commandButton value="Confirmar Datos"
+					action="#{clienteBean.guardar}" />
+			</p:panelGrid>
+		</h:form>
+	</div>
+
+</ui:composition>
